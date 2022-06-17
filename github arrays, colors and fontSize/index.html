@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+
+<script>
+
+    //model
+    let colorslist =['green', 'blue', 'orange', 'red', 'black','purple','yellow','grey',];
+    let textSize = [30, 27, 25 , 38, 35, 28, 32, 29];
+    let sentencesList =['CLICK ME 1',
+    'CLICK ME 2','CLICK ME 3','CLICK ME 4',
+    'CLICK ME 5','CLICK ME 6','CLICK ME 7',
+    'CLICK ME 8',];
+    let resultado='';
+    let newRandomText = '';
+    let radomColor = 'purple';
+    let randomSize = 28;
+
+    //view
+    updateView();
+    function updateView() {
+        let html ='';
+       
+
+        for(i=0; i<sentencesList.length; i++){
+                html += `<br><div onclick="youClicked(${i})" style ="color:${colorslist[i]} ;font-size: ${textSize[i]}px; ">${sentencesList[i]}</div>`
+        }
+       
+        html+= `<hr>
+                <br>
+                <div style="font-size:30px;">${resultado}</div>`
+        
+        html+= `<hr>
+                <br>
+                <h2>make the new text get random colors and random font size, than click on it
+                to discover the color and the size </h2>
+                <button onclick='getRandom()'>random</button>
+                <div onclick="clickNewText()" style ="font-size: ${randomSize}px;color:${radomColor}; ">NEW TEXT</div>
+                <br>
+                <div style="font-size:27px;">${newRandomText}</div>`
+        
+
+        document.getElementById('app').innerHTML = html;
+    }
+
+
+    //controller
+    function youClicked(index){
+        
+        resultado = 'Hello, you clicked at the '+ colorslist[index] + ' text, this text has the font-size of ' + textSize[index] + 'px'
+        updateView()
+    }
+
+    function getRandom() {
+        let newColorList = colorslist.filter( i => i !=  radomColor);
+            let random = Math.floor(Math.random() * newColorList.length);
+            radomColor  = newColorList[random];
+
+
+       let newSizeList = textSize.filter(i => i !=  randomSize)
+         
+         randomSize = newSizeList[random];
+        updateView()
+    }
+
+    function clickNewText() {
+        newRandomText = 'The new text got a random color of ' + radomColor + ' and a font-size of ' + randomSize +'px'
+        updateView()
+    }
+</script>
+    
+</body>
+</html>
